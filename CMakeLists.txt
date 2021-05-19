@@ -17,4 +17,4 @@ pico_enable_stdio_uart(addac 0)
 
 pico_add_extra_outputs(addac)
 
-target_link_libraries(addac pico_stdlib pico_multicore hardware_adc hardware_pwm)
+target_link_libraries(addac pico_stdlib pico_multicore hardware_adc hardware_pwm pico_bootsel_via_double_reset)

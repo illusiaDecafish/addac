@@ -46,16 +46,16 @@ void    core1loop(void) {
                 maxCount = out;
             }
         }
-/*
         uifl    uf;
-        uf.fl = sum * conversion_factor / dataCount;
+        uf.fl = sum / (float)dataCount;
         //  average value in the first 32bits in FIFO
         bool yn = multicore_fifo_push_timeout_us(uf.ui, 0);
-*/
-        bool yn = multicore_fifo_push_timeout_us(sum / dataCount, 0);
+        //  bool yn = multicore_fifo_push_timeout_us(sum / dataCount, 0);
         //  min and max raw values in the second in FIFO
         yn = multicore_fifo_push_timeout_us((max << 16) | min, 0);
-        //  error count in the third
+        //  valid data count in the third
+        yn = multicore_fifo_push_timeout_us(dataCount, 0);
+        //  error count in the fourth
         yn = multicore_fifo_push_timeout_us(errorCount, 0);
         currentMaxCount = maxCount;
         //cmc = conversion_factor / currentMaxCount;

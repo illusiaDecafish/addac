@@ -104,17 +104,20 @@ static void core0loop(void) {
         //  if not running, incomming fifo data are just ignored
            uf.ui = out;
             uint32_t    mxmn = multicore_fifo_pop_blocking();
+            uint32_t    dataCount = multicore_fifo_pop_blocking();
             uint32_t    errorCount = multicore_fifo_pop_blocking();
             uint32_t    max = (mxmn >> 16) & 0xFFFF;
             uint32_t    min = mxmn & 0xFFFF;
             absolute_time_t at = get_absolute_time();
             uint32_t    ms = to_ms_since_boot(at);
             if (guiMode)
-                printf("A/D readout:0x%03X [0x%03X-0x%03X E:%05x] priod:%4dmsec [%6d:%7.3f sec]\r",
-                    out, min, max, errorCount, ms - lastms, count, ms * 0.001);
+                /*printf("A/D readout:0x%03X [0x%03X-0x%03X E:%05x] priod:%4dmsec [%6d:%7.3f sec]\r",
+                    out, min, max, errorCount, ms - lastms, count, ms * 0.001);*/
+                printf("A/D readout:%9.4f [0x%03X-0x%03X E:%05x] priod:%4dmsec [%6d:%7.3f sec]\r",
+                    uf.fl, min, max, errorCount, ms - lastms, count, ms * 0.001);
             else 
-                printf("%\t%u\t%u\t%u\t%u\t%u\n",
-                    out, min, max, errorCount, ms, count);
+                printf("%9.4f, %u, %u, %u, %u, %u\n",
+                    uf.fl, min, max, errorCount, ms, dataCount);
             lastms = ms;
             count ++;
         }

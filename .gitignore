@@ -1,5 +1,7 @@
 # macOS specific files
 .DS_Store
+addacMacproject
 
 # 
 build/*
+!build/.gitkeep
