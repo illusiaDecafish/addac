@@ -15,6 +15,14 @@ I wrote a simple code for multicore:
 
 <img width="50%" alt="blockdiagram" src="blockdiagram.png">
 
+The code has no semaphore or mutex because they are difficult to debug on a system with no OS.
+To eliminate mutual exclusions, cores are not symmetric.
+
+1. core0 writes and reads FIFO without block (calls multicore_fifo_pop_timeout_us() function with 0us timeout).
+2. core1 reads FIFO with block and write without block
+
+This asymmetric manner is similar to a client-server model.
+
 ## PWM
 
 PWM runs at highest frequency 125MHz and wrap value 4096 that is the same value of ADC resolution. Therefore, PWM pulse frequency will be about 30kHz. To smooth the PWM low-passed output, the cut off frequency should be enough lower than the pulse frequency, for example, 3kHz.
@@ -22,4 +30,4 @@ PWM runs at highest frequency 125MHz and wrap value 4096 that is the same value 
 ## ADC
 The conversion cycle of ADC free-run mode is 500kHz and its resolution is 12bits. If you take uint32_t variable for summation for over sampling, the variable will overflow above 2 secs. 
 
-It is better to add a buffer amp after low pass filter because the ADC Input impedance is not high enough.
+It is better to add a buffer amp after low pass filter like the block diagram above because the ADC Input impedance is not high enough.
