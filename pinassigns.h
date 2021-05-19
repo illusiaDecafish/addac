@@ -10,7 +10,7 @@ typedef union {
 } uifl;
 
 static const uint       pwmpin  = 15;   //  PWM output
-static const uint       adcpin  = 1;    //  ADC input, GP27 pin
+static const uint       adcpin  = 0;    //  ADC input, GP26 pin
 
 //  wrap value for PWM, register TOP
 //  bit order is the same as ADC resolution
