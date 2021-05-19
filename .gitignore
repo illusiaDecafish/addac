@@ -5,3 +5,5 @@ addacMacproject
 # 
 build/*
 !build/.gitkeep
+.vscode/*
+!.vscode/.gitkeep
